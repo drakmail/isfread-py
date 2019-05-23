@@ -113,7 +113,7 @@ def isfread(filename):
     cmp(head['encoding'],'BIN') or cmp(head['binformat'],'RI') or 
     cmp(head['pointformat'],'Y')):
         FID.close()
-        print 'Unable to process IFS file.'
+        print('Unable to process IFS file.')
          
     # Reading the <Block> part corresponding to the "CURVe" command [TekMan]. 
     # <Block> = ":CURVE #<x><yy..y><data>"
@@ -150,14 +150,14 @@ def isfread(filename):
     # Meanwhile "n2" is the number of bytes to be readed calculated through:
     #                    NumOfPoints x BytePerPoint 
     if n1 != n2:  
-        print "WARNING: Something is not going as is was planned!!!"
+        print("WARNING: Something is not going as is was planned!!!")
     string_data=FID.read(n2)
     data=struct.unpack(fmt,string_data)
 
     # Absolute values of data obtained as is defined in [Tek-Man] WFMPre:PT_Fmt 
     # command description.  
     v=[yzero + ymult*(y-yoff) for y in data]
-    x=[xzero + xincr*(i-ptoff) for i in xrange(npts)]
+    x=[xzero + xincr*(i-ptoff) for i in range(npts)]
 
 
     FID.close()
@@ -168,10 +168,10 @@ if __name__ == "__main__":
     filein = sys.argv[1]
     x,v,head=isfread(filein)
 
-    print head
+    print(head)
 
-    for i in xrange(len(x)):
-        print '%g %g'%(x[i],v[i])
+    for i in range(len(x)):
+        print('%g %g'%(x[i],v[i]))
 
 
 
