@@ -59,9 +59,9 @@ def isfread(filename):
         y - list with the y values
         head - dictionary with the head-information stored in the file."""
 
-    FID = open(filename,'r')
+    FID = open(filename,'r',encoding='latin-1')
 
-    hdata = FID.read(511);		# read first 511 bytes
+    hdata = FID.read(511) # read first 511 bytes
 
     # Subroutines used to extract inrormation from the head --------------------    
     def getnum(string,tag):
@@ -89,6 +89,9 @@ def isfread(filename):
         n2=string.find('"',n1+1)
         n3=string.find('"',n2+1)
         return string[n2+1:n3]    
+
+    def cmp(a, b):
+        return (a > b) - (a < b)
     #---------------------------------------------------------------------------
 
     head={'bytenum': getnum(hdata,'BYT_NR'),
@@ -114,6 +117,7 @@ def isfread(filename):
     cmp(head['pointformat'],'Y')):
         FID.close()
         print('Unable to process IFS file.')
+        exit(1)
          
     # Reading the <Block> part corresponding to the "CURVe" command [TekMan]. 
     # <Block> = ":CURVE #<x><yy..y><data>"
